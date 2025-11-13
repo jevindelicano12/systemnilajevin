@@ -14,7 +14,7 @@ public class CashierAccount implements Serializable {
     public CashierAccount(String username, String password) {
         this.username = username;
         this.password = password;
-        this.status = "ACTIVE";
+        this.status = "INACTIVE";  // New cashiers start as INACTIVE
         this.createdDate = System.currentTimeMillis();
     }
     

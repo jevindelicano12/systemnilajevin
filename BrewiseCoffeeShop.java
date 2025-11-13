@@ -597,22 +597,44 @@ public class BrewiseCoffeeShop {
         // Check if cashier exists in database
         CashierAccount cashier = store.findCashier(username);
         if (cashier == null) {
-            System.out.println("  [ERROR] Access denied. Cashier not found!");
+            System.out.println("\n╔═══════════════════════════════════════════════════════════╗");
+            System.out.println("║                     ACCESS DENIED                          ║");
+            System.out.println("╠═══════════════════════════════════════════════════════════╣");
+            System.out.println("║  [ERROR] Cashier not found!                               ║");
+            System.out.println("║  Please verify your username and try again.               ║");
+            System.out.println("╚═══════════════════════════════════════════════════════════╝");
             return;
         }
         
         // Check if password matches
         if (password.equals(cashier.password)) {
             if (cashier.isActive()) {
-                System.out.println("  [SUCCESS] Welcome, " + username + "!");
+                System.out.println("\n╔═══════════════════════════════════════════════════════════╗");
+                System.out.println("║                  LOGIN SUCCESSFUL                         ║");
+                System.out.println("╠═══════════════════════════════════════════════════════════╣");
+                System.out.println("║  [SUCCESS] Welcome, " + padRight(username, 40) + "║");
+                System.out.println("╚═══════════════════════════════════════════════════════════╝");
                 currentCashier = username; // Set current cashier
                 cashierSystem();
                 currentCashier = null; // Clear on logout
             } else {
-                System.out.println("  [ERROR] Access denied. This cashier account is deactivated!");
+                System.out.println("\n╔═══════════════════════════════════════════════════════════╗");
+                System.out.println("║                     ACCESS DENIED                          ║");
+                System.out.println("╠═══════════════════════════════════════════════════════════╣");
+                System.out.println("║  [ERROR] This cashier account is currently INACTIVE!     ║");
+                System.out.println("║                                                           ║");
+                System.out.println("║  Your account has been deactivated. Please contact an    ║");
+                System.out.println("║  administrator to activate your account before you can   ║");
+                System.out.println("║  access the payment system.                               ║");
+                System.out.println("╚═══════════════════════════════════════════════════════════╝");
             }
         } else {
-            System.out.println("  [ERROR] Access denied. Wrong password!");
+            System.out.println("\n╔═══════════════════════════════════════════════════════════╗");
+            System.out.println("║                     ACCESS DENIED                          ║");
+            System.out.println("╠═══════════════════════════════════════════════════════════╣");
+            System.out.println("║  [ERROR] Wrong password!                                   ║");
+            System.out.println("║  Please verify your password and try again.                ║");
+            System.out.println("╚═══════════════════════════════════════════════════════════╝");
         }
     }
 

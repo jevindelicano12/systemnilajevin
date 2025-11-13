@@ -14,13 +14,13 @@ public class AdminCashierModule {
             System.out.println("\n╔════════════════════════════════════════╗");
             System.out.println("║    💳 CASHIER MANAGEMENT PANEL 💳     ║");
             System.out.println("╠════════════════════════════════════════╣");
-            System.out.println("║    1  View All Cashiers                ║");
-            System.out.println("║    2  Add New Cashier                  ║");
-            System.out.println("║    3  Edit Cashier Password            ║");
-            System.out.println("║    4  Deactivate Cashier               ║");
-            System.out.println("║    5  Activate Cashier                 ║");
-            System.out.println("║    6  Remove Cashier                   ║");
-            System.out.println("║    7  Back                             ║");
+            System.out.println("║    [1]  View All Cashiers              ║");
+            System.out.println("║    [2]  Add New Cashier                ║");
+            System.out.println("║    [3]  Edit Cashier Password          ║");
+            System.out.println("║    [4]  Deactivate Cashier             ║");
+            System.out.println("║    [5]  Activate Cashier (REQUIRED)    ║");
+            System.out.println("║    [6]  Remove Cashier                 ║");
+            System.out.println("║    [7]  Back                           ║");
             System.out.println("╚════════════════════════════════════════╝");
             System.out.print("Enter your choice [1-7]: ");
             
@@ -47,7 +47,7 @@ public class AdminCashierModule {
                 case "7":
                     return;
                 default:
-                    System.out.println("❌ Invalid choice. Please try again.");
+                    System.out.println("[ERROR] Invalid choice. Please try again.");
             }
         }
     }
@@ -67,8 +67,8 @@ public class AdminCashierModule {
         
         for (int i = 0; i < cashiers.size(); i++) {
             CashierAccount c = cashiers.get(i);
-            String status = c.isActive() ? "✅ ACTIVE" : "❌ INACTIVE";
-            System.out.printf("║  %d. %-20s %s             ║\n", i + 1, c.username, status);
+            String status = c.isActive() ? "[ACTIVE] " : "[INACTIVE]";
+            System.out.printf("║  %d. %-20s %s       ║%n", i + 1, c.username, status);
         }
         System.out.println("╚════════════════════════════════════════╝");
     }
@@ -101,7 +101,23 @@ public class AdminCashierModule {
         
         boolean success = store.addCashier(username, password);
         if (success) {
-            System.out.println("✅ Cashier '" + username + "' added successfully!");
+            System.out.println("\n╔════════════════════════════════════════╗");
+            System.out.println("║    ✅ CASHIER CREATED SUCCESSFULLY ✅  ║");
+            System.out.println("╠════════════════════════════════════════╣");
+            System.out.println("║  Username: " + BrewiseCoffeeShop.padRight(username, 26) + "║");
+            System.out.println("║  Status:   INACTIVE (Pending Approval) ║");
+            System.out.println("║                                        ║");
+            System.out.println("║  ⚠️  IMPORTANT:                        ║");
+            System.out.println("║  This cashier account has been         ║");
+            System.out.println("║  created but is currently INACTIVE.    ║");
+            System.out.println("║                                        ║");
+            System.out.println("║  You must ACTIVATE this account        ║");
+            System.out.println("║  before the cashier can access the     ║");
+            System.out.println("║  payment system.                       ║");
+            System.out.println("║                                        ║");
+            System.out.println("║  Use option [5] to activate this       ║");
+            System.out.println("║  cashier account.                      ║");
+            System.out.println("╚════════════════════════════════════════╝");
             // Immediately save to storage
             PersistenceManager.saveStore(BrewiseCoffeeShop.store);
             System.out.println("💾 Changes saved to database!");
@@ -152,24 +168,41 @@ public class AdminCashierModule {
         String username = sc.nextLine().trim();
         
         if (username.equals("admin")) {
-            System.out.println("❌ Cannot deactivate admin account!");
+            System.out.println("[ERROR] Cannot deactivate admin account!");
             return;
         }
         
         CashierAccount cashier = store.findCashier(username);
         if (cashier == null) {
-            System.out.println("❌ Cashier '" + username + "' not found!");
+            System.out.println("[ERROR] Cashier '" + username + "' not found!");
+            return;
+        }
+        
+        if (!cashier.isActive()) {
+            System.out.println("[INFO] Cashier '" + username + "' is already INACTIVE!");
             return;
         }
         
         boolean success = store.deactivateCashier(username);
         if (success) {
-            System.out.println("✅ Cashier '" + username + "' deactivated successfully!");
+            System.out.println("\n╔════════════════════════════════════════╗");
+            System.out.println("║    ⛔ CASHIER DEACTIVATED ⛔           ║");
+            System.out.println("╠════════════════════════════════════════╣");
+            System.out.println("║  Username: " + BrewiseCoffeeShop.padRight(username, 26) + "║");
+            System.out.println("║  Status:   [INACTIVE]                  ║");
+            System.out.println("║                                        ║");
+            System.out.println("║  This cashier will:                    ║");
+            System.out.println("║  • Cannot login to the system          ║");
+            System.out.println("║  • Cannot process payments             ║");
+            System.out.println("║  • Account is suspended                ║");
+            System.out.println("║                                        ║");
+            System.out.println("║  Use option [5] to reactivate.         ║");
+            System.out.println("╚════════════════════════════════════════╝");
             // Save changes to storage
             PersistenceManager.saveStore(BrewiseCoffeeShop.store);
-            System.out.println("💾 Changes saved to database!");
+            System.out.println("[SUCCESS] Changes saved to database!");
         } else {
-            System.out.println("❌ Failed to deactivate cashier!");
+            System.out.println("[ERROR] Failed to deactivate cashier!");
         }
     }
 
@@ -183,18 +216,34 @@ public class AdminCashierModule {
         
         CashierAccount cashier = store.findCashier(username);
         if (cashier == null) {
-            System.out.println("❌ Cashier '" + username + "' not found!");
+            System.out.println("[ERROR] Cashier '" + username + "' not found!");
+            return;
+        }
+        
+        if (cashier.isActive()) {
+            System.out.println("[INFO] Cashier '" + username + "' is already ACTIVE!");
             return;
         }
         
         boolean success = store.activateCashier(username);
         if (success) {
-            System.out.println("✅ Cashier '" + username + "' activated successfully!");
+            System.out.println("\n╔════════════════════════════════════════╗");
+            System.out.println("║    ✅ CASHIER ACTIVATED ✅             ║");
+            System.out.println("╠════════════════════════════════════════╣");
+            System.out.println("║  Username: " + BrewiseCoffeeShop.padRight(username, 26) + "║");
+            System.out.println("║  Status:   [ACTIVE]                    ║");
+            System.out.println("║                                        ║");
+            System.out.println("║  This cashier can now:                 ║");
+            System.out.println("║  • Login to the cashier system         ║");
+            System.out.println("║  • Process payments                    ║");
+            System.out.println("║  • Print receipts                      ║");
+            System.out.println("║  • Generate transactions               ║");
+            System.out.println("╚════════════════════════════════════════╝");
             // Save changes to storage
             PersistenceManager.saveStore(BrewiseCoffeeShop.store);
-            System.out.println("💾 Changes saved to database!");
+            System.out.println("[SUCCESS] Changes saved to database!");
         } else {
-            System.out.println("❌ Failed to activate cashier!");
+            System.out.println("[ERROR] Failed to activate cashier!");
         }
     }
 
