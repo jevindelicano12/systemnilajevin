@@ -6,23 +6,23 @@ public class CustomerModule {
         List<String> categories = store.getCategories();
         
         while (true) {
-            System.out.println("\n" + ColorConstants.BORDER + "╔═══════════════════════════════════════════════════════════╗" + ColorConstants.RESET);
-            System.out.println(ColorConstants.BORDER + "║" + ColorConstants.RESET + ColorConstants.MENU_TITLE + "         CUSTOMER MENU                                     " + ColorConstants.RESET + ColorConstants.BORDER + "║" + ColorConstants.RESET);
-            System.out.println(ColorConstants.BORDER + "╠═══════════════════════════════════════════════════════════╣" + ColorConstants.RESET);
-            System.out.println(ColorConstants.BORDER + "║" + ColorConstants.RESET + "                                                           " + ColorConstants.BORDER + "║" + ColorConstants.RESET);
+            System.out.println("\n" + ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "╔═══════════════════════════════════════════════════════════╗" + ColorConstants.RESET);
+            System.out.println(ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + ColorConstants.HEADER + "         CUSTOMER MENU                                     " + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET);
+            System.out.println(ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "╠═══════════════════════════════════════════════════════════╣" + ColorConstants.RESET);
+            System.out.println(ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + "                                                           " + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET);
             
             // Show all product categories dynamically without individual choice numbers
             for (int i = 0; i < categories.size(); i++) {
-                String line = String.format(ColorConstants.BORDER + "║" + ColorConstants.RESET + "  " + ColorConstants.MENU_ITEM + "[%d]" + ColorConstants.RESET + "  %s" + ColorConstants.BORDER + "║" + ColorConstants.RESET, 
+                String line = String.format(ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + "  " + ColorConstants.MENU_ITEM + "[%d]" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + "  %s" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET, 
                     (i + 1), BrewiseCoffeeShop.padRight(categories.get(i), 49));
                 System.out.println(line);
             }
             
-            String backLine = String.format(ColorConstants.BORDER + "║" + ColorConstants.RESET + "  " + ColorConstants.WARNING + "[%d]" + ColorConstants.RESET + "  %s" + ColorConstants.BORDER + "║" + ColorConstants.RESET, 
+            String backLine = String.format(ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + "  " + ColorConstants.WARNING + "[%d]" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + "  %s" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET, 
                 (categories.size() + 1), BrewiseCoffeeShop.padRight("Back", 49));
             System.out.println(backLine);
-            System.out.println(ColorConstants.BORDER + "║" + ColorConstants.RESET + "                                                           " + ColorConstants.BORDER + "║" + ColorConstants.RESET);
-            System.out.println(ColorConstants.BORDER + "╚═══════════════════════════════════════════════════════════╝" + ColorConstants.RESET);
+            System.out.println(ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + "                                                           " + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET);
+            System.out.println(ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "╚═══════════════════════════════════════════════════════════╝" + ColorConstants.RESET);
             
             int choice = BrewiseCoffeeShop.getInt(ColorConstants.INPUT_PROMPT + "  Enter your choice [1-" + (categories.size() + 1) + "]: " + ColorConstants.RESET, 
                                                  1, categories.size() + 1);
@@ -46,10 +46,10 @@ public class CustomerModule {
         List<Product> products = store.getProductsByCategory(category);
         
         while (true) {
-            System.out.println("\n" + ColorConstants.BORDER + "╔═══════════════════════════════════════════════════════════╗" + ColorConstants.RESET);
-            System.out.println(ColorConstants.BORDER + "║" + ColorConstants.RESET + "  " + BrewiseCoffeeShop.padCenter(ColorConstants.HEADER + category.toUpperCase() + ColorConstants.RESET, 55) + ColorConstants.BORDER + "║" + ColorConstants.RESET);
-            System.out.println(ColorConstants.BORDER + "╠═══════════════════════════════════════════════════════════╣" + ColorConstants.RESET);
-            System.out.println(ColorConstants.BORDER + "║" + ColorConstants.RESET + "                                                           " + ColorConstants.BORDER + "║" + ColorConstants.RESET);
+            System.out.println("\n" + ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "╔═══════════════════════════════════════════════════════════╗" + ColorConstants.RESET);
+            System.out.println(ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + "  " + BrewiseCoffeeShop.padCenter(ColorConstants.HEADER + category.toUpperCase() + ColorConstants.RESET, 55) + ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET);
+            System.out.println(ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "╠═══════════════════════════════════════════════════════════╣" + ColorConstants.RESET);
+            System.out.println(ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + "                                                           " + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET);
             
             // Show all products in this category with description style
             for (int i = 0; i < products.size(); i++) {
@@ -63,17 +63,17 @@ public class CustomerModule {
                 // Space for: name + dots + price
                 int totalSpace = 49;  // 61 - 2 (║) - 2 (two spaces at start) - 2 (closing space and ║)
                 int dotsSpace = totalSpace - p.name.length() - priceStr.length() + ColorConstants.PRICE.length() + ColorConstants.RESET.length();
-                String dots = ColorConstants.BORDER + ".".repeat(Math.max(0, dotsSpace - 10)) + ColorConstants.RESET;
+                String dots = ".".repeat(Math.max(0, dotsSpace - 10));
                 
-                System.out.printf(ColorConstants.BORDER + "║" + ColorConstants.RESET + "  %s  %s%s%s" + ColorConstants.BORDER + "║" + ColorConstants.RESET + "%n", choiceStr, p.name, dots, priceStr);
+                System.out.printf(ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + "  %s  %s%s%s" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET + "%n", choiceStr, p.name, dots, priceStr);
                 
                 // Show description on next line
                 String desc = p.description;
                 if (desc.length() > 51) {
                     desc = desc.substring(0, 48) + "...";
                 }
-                System.out.printf(ColorConstants.BORDER + "║" + ColorConstants.RESET + "       %s" + ColorConstants.BORDER + "║" + ColorConstants.RESET + "%n", BrewiseCoffeeShop.padRight(desc, 51));
-                System.out.println(ColorConstants.BORDER + "║" + ColorConstants.RESET + "                                                           " + ColorConstants.BORDER + "║" + ColorConstants.RESET);
+                System.out.printf(ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + "       %s" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET + "%n", BrewiseCoffeeShop.padRight(desc, 51));
+                System.out.println(ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + "                                                           " + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET);
             }
             
             // Back option
@@ -83,9 +83,9 @@ public class CustomerModule {
             int backDotsSpace = 49 - backStr.length() - backUpper.length();
             String backDots = ".".repeat(Math.max(0, backDotsSpace));
             
-            System.out.printf(ColorConstants.BORDER + "║" + ColorConstants.RESET + "  %s  %s%s%s" + ColorConstants.BORDER + "║" + ColorConstants.RESET + "%n", choiceStr, backStr, backDots, backUpper);
-            System.out.println(ColorConstants.BORDER + "║" + ColorConstants.RESET + "                                                           " + ColorConstants.BORDER + "║" + ColorConstants.RESET);
-            System.out.println(ColorConstants.BORDER + "╚═══════════════════════════════════════════════════════════╝" + ColorConstants.RESET);
+            System.out.printf(ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + "  %s  %s%s%s" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET + "%n", choiceStr, backStr, backDots, backUpper);
+            System.out.println(ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + "                                                           " + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET);
+            System.out.println(ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "╚═══════════════════════════════════════════════════════════╝" + ColorConstants.RESET);
             
             int choice = BrewiseCoffeeShop.getInt(ColorConstants.INPUT_PROMPT + "  Enter your choice [1-" + (products.size() + 1) + "]: " + ColorConstants.RESET, 
                                                  1, products.size() + 1);
@@ -102,21 +102,21 @@ public class CustomerModule {
 
     private static void customizeProduct(Product product, String category) {
         Store store = BrewiseCoffeeShop.store;
-        System.out.println("\n" + ColorConstants.BORDER + "╔═══════════════════════════════════════════════════════════╗" + ColorConstants.RESET);
-        System.out.println(ColorConstants.BORDER + "║" + ColorConstants.RESET + ColorConstants.HEADER + "                   CUSTOMIZE ORDER                         " + ColorConstants.RESET + ColorConstants.BORDER + "║" + ColorConstants.RESET);
-        System.out.println(ColorConstants.BORDER + "╠═══════════════════════════════════════════════════════════╣" + ColorConstants.RESET);
-        System.out.println("  Product: " + ColorConstants.MENU_ITEM + product.name + ColorConstants.RESET);
-        System.out.println("  Price: " + ColorConstants.PRICE + product.price + " PHP" + ColorConstants.RESET);
-        System.out.println("  " + product.description);
-        System.out.println(ColorConstants.BORDER + "╠═══════════════════════════════════════════════════════════╣" + ColorConstants.RESET);
+        System.out.println("\n" + ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "╔═══════════════════════════════════════════════════════════╗" + ColorConstants.RESET);
+        System.out.println(ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + ColorConstants.HEADER + "                   CUSTOMIZE ORDER                         " + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET);
+        System.out.println(ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "╠═══════════════════════════════════════════════════════════╣" + ColorConstants.RESET);
+        System.out.println(ColorConstants.MENU_BOX_BG + "  Product: " + ColorConstants.MENU_ITEM + product.name + ColorConstants.RESET + ColorConstants.MENU_BOX_BG);
+        System.out.println(ColorConstants.MENU_BOX_BG + "  Price: " + ColorConstants.PRICE + product.price + " PHP" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG);
+        System.out.println(ColorConstants.MENU_BOX_BG + "  " + product.description + ColorConstants.RESET);
+        System.out.println(ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "╠═══════════════════════════════════════════════════════════╣" + ColorConstants.RESET);
         
         int quantity = BrewiseCoffeeShop.getInt(ColorConstants.INPUT_PROMPT + "  Quantity [1-10]: " + ColorConstants.RESET, 1, 10);
         
         // Get sugar level
-        System.out.println("\n  Sugar Level:");
-        System.out.println("  " + ColorConstants.MENU_ITEM + "[1]" + ColorConstants.RESET + "  Less Sweet");
-        System.out.println("  " + ColorConstants.MENU_ITEM + "[2]" + ColorConstants.RESET + "  Standard");
-        System.out.println("  " + ColorConstants.MENU_ITEM + "[3]" + ColorConstants.RESET + "  Sweet");
+        System.out.println("\n" + ColorConstants.MENU_BOX_BG + "  Sugar Level:" + ColorConstants.RESET);
+        System.out.println(ColorConstants.MENU_BOX_BG + "  " + ColorConstants.MENU_ITEM + "[1]" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + "  Less Sweet" + ColorConstants.RESET);
+        System.out.println(ColorConstants.MENU_BOX_BG + "  " + ColorConstants.MENU_ITEM + "[2]" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + "  Standard" + ColorConstants.RESET);
+        System.out.println(ColorConstants.MENU_BOX_BG + "  " + ColorConstants.MENU_ITEM + "[3]" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + "  Sweet" + ColorConstants.RESET);
         int sugarChoice = BrewiseCoffeeShop.getInt(ColorConstants.INPUT_PROMPT + "  Choice [1-3]: " + ColorConstants.RESET, 1, 3);
         String sugar = switch (sugarChoice) {
             case 1 -> "Less Sweet";
