@@ -16,11 +16,11 @@ public class BrewiseCoffeeShop {
 
     public static void main(String[] args) {
         // === DATABASE INITIALIZATION ===
-        System.out.println("\n╔═══════════════════════════════════════════════════════════╗");
-        System.out.println("║                                                           ║");
-        System.out.println("║          BREWISE COFFEE SHOP MANAGEMENT SYSTEM            ║");
-        System.out.println("║                                                           ║");
-        System.out.println("╚═══════════════════════════════════════════════════════════╝");
+        System.out.println("\n" + ColorConstants.BORDER + "╔═══════════════════════════════════════════════════════════╗" + ColorConstants.RESET);
+        System.out.println(ColorConstants.BORDER + "║" + ColorConstants.RESET + "                                                           " + ColorConstants.BORDER + "║" + ColorConstants.RESET);
+        System.out.println(ColorConstants.BORDER + "║" + ColorConstants.RESET + ColorConstants.HEADER + "          BREWISE COFFEE SHOP MANAGEMENT SYSTEM            " + ColorConstants.RESET + ColorConstants.BORDER + "║" + ColorConstants.RESET);
+        System.out.println(ColorConstants.BORDER + "║" + ColorConstants.RESET + "                                                           " + ColorConstants.BORDER + "║" + ColorConstants.RESET);
+        System.out.println(ColorConstants.BORDER + "╚═══════════════════════════════════════════════════════════╝" + ColorConstants.RESET);
         System.out.println("  Working Directory: " + System.getProperty("user.dir"));
         
         // Load store from JSON
@@ -29,16 +29,16 @@ public class BrewiseCoffeeShop {
             System.out.println("  Initializing system with default data...");
             store = new Store(); // Initialize with default data
             PersistenceManager.saveStore(store);
-            System.out.println("  [SUCCESS] System initialized and saved.");
+            System.out.println("  " + ColorConstants.colorize("[SUCCESS]", ColorConstants.SUCCESS) + " System initialized and saved.");
         } else {
-            System.out.println("  [SUCCESS] System loaded from database.");
+            System.out.println("  " + ColorConstants.colorize("[SUCCESS]", ColorConstants.SUCCESS) + " System loaded from database.");
         }
         
         // Add shutdown hook to save data on exit
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             System.out.println("\n  Saving data...");
             PersistenceManager.saveStore(store);
-            System.out.println("  [SUCCESS] Data saved successfully!");
+            System.out.println("  " + ColorConstants.colorize("[SUCCESS]", ColorConstants.SUCCESS) + " Data saved successfully!");
         }));
         
         mainMenu();
@@ -47,19 +47,19 @@ public class BrewiseCoffeeShop {
     // ---------------------- MAIN MENU ----------------------
     static void mainMenu() {
         while (true) {
-            System.out.println("\n╔═══════════════════════════════════════════════════════════╗");
-            System.out.println("║                   MAIN MENU                               ║");
-            System.out.println("╠═══════════════════════════════════════════════════════════╣");
-            System.out.println("║                                                           ║");
-            System.out.println("║    [1]  Browse Menu                                       ║");
-            System.out.println("║    [2]  View/Edit Basket                                  ║");
-            System.out.println("║    [3]  Checkout & Payment                                ║");
-            System.out.println("║    [4]  Quick Stats                                       ║");
-            System.out.println("║    [5]  Exit                                              ║");
-            System.out.println("║                                                           ║");
-            System.out.println("╚═══════════════════════════════════════════════════════════╝");
+            System.out.println("\n" + ColorConstants.BORDER + "╔═══════════════════════════════════════════════════════════╗" + ColorConstants.RESET);
+            System.out.println(ColorConstants.BORDER + "║" + ColorConstants.RESET + ColorConstants.HEADER + "                   MAIN MENU                               " + ColorConstants.RESET + ColorConstants.BORDER + "║" + ColorConstants.RESET);
+            System.out.println(ColorConstants.BORDER + "╠═══════════════════════════════════════════════════════════╣" + ColorConstants.RESET);
+            System.out.println(ColorConstants.BORDER + "║" + ColorConstants.RESET + "                                                           " + ColorConstants.BORDER + "║" + ColorConstants.RESET);
+            System.out.println(ColorConstants.BORDER + "║" + ColorConstants.RESET + "    " + ColorConstants.MENU_ITEM + "[1]  Browse Menu" + ColorConstants.RESET + "                                       " + ColorConstants.BORDER + "║" + ColorConstants.RESET);
+            System.out.println(ColorConstants.BORDER + "║" + ColorConstants.RESET + "    " + ColorConstants.MENU_ITEM + "[2]  View/Edit Basket" + ColorConstants.RESET + "                                  " + ColorConstants.BORDER + "║" + ColorConstants.RESET);
+            System.out.println(ColorConstants.BORDER + "║" + ColorConstants.RESET + "    " + ColorConstants.MENU_ITEM + "[3]  Checkout & Payment" + ColorConstants.RESET + "                                " + ColorConstants.BORDER + "║" + ColorConstants.RESET);
+            System.out.println(ColorConstants.BORDER + "║" + ColorConstants.RESET + "    " + ColorConstants.MENU_ITEM + "[4]  Quick Stats" + ColorConstants.RESET + "                                       " + ColorConstants.BORDER + "║" + ColorConstants.RESET);
+            System.out.println(ColorConstants.BORDER + "║" + ColorConstants.RESET + "    " + ColorConstants.WARNING + "[5]  Exit" + ColorConstants.RESET + "                                              " + ColorConstants.BORDER + "║" + ColorConstants.RESET);
+            System.out.println(ColorConstants.BORDER + "║" + ColorConstants.RESET + "                                                           " + ColorConstants.BORDER + "║" + ColorConstants.RESET);
+            System.out.println(ColorConstants.BORDER + "╚═══════════════════════════════════════════════════════════╝" + ColorConstants.RESET);
             
-            System.out.print("  Enter your choice [1-5]: ");
+            System.out.print(ColorConstants.INPUT_PROMPT + "  Enter your choice [1-5]: " + ColorConstants.RESET);
             String input = sc.nextLine();
 
             switch (input) {
