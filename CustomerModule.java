@@ -51,15 +51,22 @@ public class CustomerModule {
             // Show all products in this category with proper alignment
             for (int i = 0; i < products.size(); i++) {
                 Product p = products.get(i);
-                String choiceStr = ColorConstants.MENU_ITEM + "[" + (i + 1) + "]" + ColorConstants.RESET;
-                String priceStr = ColorConstants.PRICE + "PHP " + String.format("%.2f", p.price) + ColorConstants.RESET;
-                int dotsSpace = 37 - p.name.length();
-                String dots = ".".repeat(Math.max(1, dotsSpace));
                 
-                // Build content: [1]  Name.....PHP 120.00  (55 visible chars)
-                // Then add borders to make 61 total
-                String content = "  " + choiceStr + ColorConstants.MENU_BOX_BG + "  " + p.name + dots + priceStr + ColorConstants.MENU_BOX_BG + "  ";
-                System.out.println(ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + content + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET);
+                // Build the line: "  [1]  ProductName...................PHP 120.00  "
+                // Total visible chars needed: 59 (box interior width)
+                String choiceNum = "" + (i + 1);
+                String price = String.format("%.2f", p.price);
+                String pricePart = "PHP " + price;  // e.g., "PHP 120.00" = 10 chars
+                
+                // Calculate dots: 59 - 2(leading spaces) - 5([1]+ 2 spaces) - 2(name spaces) - name.length - price.length - 2(trailing spaces)
+                int dotsCount = 59 - 2 - 5 - 2 - p.name.length() - pricePart.length() - 2;
+                String dots = ".".repeat(Math.max(1, dotsCount));
+                
+                String itemNum = ColorConstants.MENU_ITEM + "[" + choiceNum + "]" + ColorConstants.RESET;
+                String priceColored = ColorConstants.PRICE + pricePart + ColorConstants.RESET;
+                
+                String line = "  " + itemNum + ColorConstants.MENU_BOX_BG + "  " + p.name + dots + priceColored + ColorConstants.MENU_BOX_BG + "  ";
+                System.out.println(ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + line + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET);
                 
                 // Show description on next line
                 String desc = p.description;
@@ -71,14 +78,17 @@ public class CustomerModule {
             }
             
             // Back option
-            String backChoiceStr = ColorConstants.WARNING + "[" + (products.size() + 1) + "]" + ColorConstants.RESET;
-            String backStr = "Back";
+            String backNum = "" + (products.size() + 1);
+            String backText = "Back";
             String backUpper = "BACK";
-            int backDotsSpace = 37 - backStr.length();
-            String backDots = ".".repeat(Math.max(1, backDotsSpace));
             
-            String backContent = "  " + backChoiceStr + ColorConstants.MENU_BOX_BG + "  " + backStr + backDots + backUpper + ColorConstants.MENU_BOX_BG + "  ";
-            System.out.println(ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + backContent + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET);
+            // Calculate dots: 59 - 2 - 5([n]+ spaces) - 2(name spaces) - name - price - 2(trailing)
+            int backDotsCount = 59 - 2 - 5 - 2 - backText.length() - backUpper.length() - 2;
+            String backDots = ".".repeat(Math.max(1, backDotsCount));
+            
+            String backItemNum = ColorConstants.WARNING + "[" + backNum + "]" + ColorConstants.RESET;
+            String backLine = "  " + backItemNum + ColorConstants.MENU_BOX_BG + "  " + backText + backDots + backUpper + ColorConstants.MENU_BOX_BG + "  ";
+            System.out.println(ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + backLine + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET);
             System.out.println(ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + "                                                           " + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET);
             System.out.println(ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "╚═══════════════════════════════════════════════════════════╝" + ColorConstants.RESET);
             
