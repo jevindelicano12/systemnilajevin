@@ -56,7 +56,10 @@ public class CustomerModule {
                 int dotsSpace = 37 - p.name.length();
                 String dots = ".".repeat(Math.max(1, dotsSpace));
                 
-                System.out.println(ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + "  " + choiceStr + ColorConstants.MENU_BOX_BG + "  " + p.name + dots + priceStr + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET);
+                // Build content: [1]  Name.....PHP 120.00  (55 visible chars)
+                // Then add borders to make 61 total
+                String content = "  " + choiceStr + ColorConstants.MENU_BOX_BG + "  " + p.name + dots + priceStr + ColorConstants.MENU_BOX_BG + "  ";
+                System.out.println(ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + content + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET);
                 
                 // Show description on next line
                 String desc = p.description;
@@ -74,7 +77,8 @@ public class CustomerModule {
             int backDotsSpace = 37 - backStr.length();
             String backDots = ".".repeat(Math.max(1, backDotsSpace));
             
-            System.out.println(ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + "  " + backChoiceStr + ColorConstants.MENU_BOX_BG + "  " + backStr + backDots + backUpper + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET);
+            String backContent = "  " + backChoiceStr + ColorConstants.MENU_BOX_BG + "  " + backStr + backDots + backUpper + ColorConstants.MENU_BOX_BG + "  ";
+            System.out.println(ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + backContent + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET);
             System.out.println(ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + "                                                           " + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET);
             System.out.println(ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "╚═══════════════════════════════════════════════════════════╝" + ColorConstants.RESET);
             
