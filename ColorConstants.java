@@ -64,6 +64,12 @@ public class ColorConstants {
     public static final String DESCRIPTION = CYAN;
     public static final String INPUT_PROMPT = BRIGHT_CYAN;
     
+    // Box Background Colors
+    public static final String BOX_BG_DARK = BG_BLUE;
+    public static final String BOX_BG_ACCENT = BG_BLACK;
+    public static final String HEADER_BOX_BG = BG_BLUE;
+    public static final String MENU_BOX_BG = BG_BLACK;
+    
     // Helper method to create colored text
     public static String colorize(String text, String color) {
         return color + text + RESET;
