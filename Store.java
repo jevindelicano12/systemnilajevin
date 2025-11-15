@@ -147,32 +147,34 @@ public class Store {
     }
 
     private void initializeInventory() {
-        // Basic supplies
-        addInventoryItem("I-CUP-S", "Small Cups", "pieces", 1000, 100);
-        addInventoryItem("I-CUP-M", "Medium Cups", "pieces", 1000, 100);
-        addInventoryItem("I-CUP-L", "Large Cups", "pieces", 1000, 100);
-        addInventoryItem("I-LID", "Cup Lids", "pieces", 3000, 300);
-        addInventoryItem("I-STR", "Straws", "pieces", 3000, 300);
+        // STANDARD: 20 units as starting quantity, 10 units as low-stock threshold
+        
+        // Basic supplies - 20 pieces each, reorder at 10
+        addInventoryItem("I-CUP-S", "Small Cups", "pieces", 20, 10);
+        addInventoryItem("I-CUP-M", "Medium Cups", "pieces", 20, 10);
+        addInventoryItem("I-CUP-L", "Large Cups", "pieces", 20, 10);
+        addInventoryItem("I-LID", "Cup Lids", "pieces", 20, 10);
+        addInventoryItem("I-STR", "Straws", "pieces", 20, 10);
 
-        // Coffee basics
-        addInventoryItem("I-BEANS", "Coffee Beans", "grams", 10000, 2000);
-        addInventoryItem("I-MILK", "Fresh Milk", "ml", 20000, 5000);
+        // Coffee basics - 20 grams/ml each, reorder at 10
+        addInventoryItem("I-BEANS", "Coffee Beans", "grams", 20, 10);
+        addInventoryItem("I-MILK", "Fresh Milk", "ml", 20, 10);
 
-        // Tea basics
-        addInventoryItem("I-TEA-B", "Black Tea", "grams", 5000, 1000);
-        addInventoryItem("I-TEA-G", "Green Tea", "grams", 5000, 1000);
+        // Tea basics - 20 grams each, reorder at 10
+        addInventoryItem("I-TEA-B", "Black Tea", "grams", 20, 10);
+        addInventoryItem("I-TEA-G", "Green Tea", "grams", 20, 10);
 
-        // Add-ons and toppings
-        addInventoryItem("I-BOBA", "Boba Pearls", "grams", 10000, 2000);
-        addInventoryItem("I-WHC", "Whipping Cream", "ml", 5000, 1000);
-        addInventoryItem("I-SYR-V", "Vanilla Syrup", "ml", 5000, 1000);
-        addInventoryItem("I-SYR-C", "Caramel Syrup", "ml", 5000, 1000);
-        addInventoryItem("I-CFOAM", "Cheese Foam Mix", "grams", 5000, 1000);
-        addInventoryItem("I-ALT", "Almond Milk", "ml", 10000, 2000);
+        // Add-ons and toppings - 20 grams/ml each, reorder at 10
+        addInventoryItem("I-BOBA", "Boba Pearls", "grams", 20, 10);
+        addInventoryItem("I-WHC", "Whipping Cream", "ml", 20, 10);
+        addInventoryItem("I-SYR-V", "Vanilla Syrup", "ml", 20, 10);
+        addInventoryItem("I-SYR-C", "Caramel Syrup", "ml", 20, 10);
+        addInventoryItem("I-CFOAM", "Cheese Foam Mix", "grams", 20, 10);
+        addInventoryItem("I-ALT", "Almond Milk", "ml", 20, 10);
 
-        // Ice and water
-        addInventoryItem("I-ICE", "Ice", "kg", 100, 20);
-        addInventoryItem("I-WAT", "Filtered Water", "L", 200, 50);
+        // Ice and water - 20 units each, reorder at 10
+        addInventoryItem("I-ICE", "Ice", "kg", 20, 10);
+        addInventoryItem("I-WAT", "Filtered Water", "L", 20, 10);
     }
 
     private void addProduct(String id, String category, String name, String flavour, 

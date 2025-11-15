@@ -85,11 +85,36 @@ public class AdminModule {
         if (inventory.isEmpty()) {
             System.out.println("║  No inventory items.                                      ║");
         } else {
-            for (Map.Entry<String, InventoryItem> entry : inventory.entrySet()) {
-                InventoryItem item = entry.getValue();
-                String status = item.quantity <= item.reorderThreshold ? "[LOW]" : "[OK]";
-                System.out.printf("║  %-30s Qty: %5.1f %-4s %s%n", 
-                    item.name, item.quantity, item.unit, status);
+            // First, check for low stock items and display warnings
+            List<InventoryItem> lowStockItems = new ArrayList<>();
+            for (InventoryItem item : inventory.values()) {
+                item.checkAndUpdateLowStock();  // Update low stock flag
+                if (item.isLowStock) {
+                    lowStockItems.add(item);
+                }
+            }
+            
+            // Display low stock warnings if any exist
+            if (!lowStockItems.isEmpty()) {
+                System.out.println("║                                                           ║");
+                System.out.println("║  " + ColorConstants.WARNING + "[⚠️  LOW STOCK ALERT ⚠️]" + ColorConstants.RESET + "                               ║");
+                for (InventoryItem item : lowStockItems) {
+                    double needed = item.reorderThreshold - item.quantity + 10;  // How much needed to reach 20
+                    System.out.printf("║  %s[%s] %s: %.0f %s (Need to replenish)%s    ║%n", 
+                        ColorConstants.WARNING, "!", ColorConstants.RESET, needed, item.unit, ColorConstants.RESET);
+                }
+                System.out.println("║                                                           ║");
+            }
+            
+            System.out.println("║  Item Name                     Quantity  Unit  Status    ║");
+            System.out.println("╠═══════════════════════════════════════════════════════════╣");
+            
+            // Display all inventory items with color coding
+            for (InventoryItem item : inventory.values()) {
+                String statusColor = item.isLowStock ? ColorConstants.WARNING : ColorConstants.SUCCESS;
+                String status = item.isLowStock ? "[LOW]" : "[OK]";
+                System.out.printf("║  %-28s %5.0f  %-4s  %s%s%s      ║%n", 
+                    item.name, item.quantity, item.unit, statusColor, status, ColorConstants.RESET);
             }
         }
         System.out.println("╚═══════════════════════════════════════════════════════════╝");
@@ -142,18 +167,21 @@ public class AdminModule {
         List<InventoryItem> lowStockItems = new ArrayList<>();
         
         for (InventoryItem item : inventory.values()) {
-            if (item.quantity <= item.reorderThreshold) {
+            item.checkAndUpdateLowStock();  // Update low stock status
+            if (item.isLowStock) {
                 lowStockItems.add(item);
             }
         }
         
         if (lowStockItems.isEmpty()) {
-            System.out.println("║  All items are well-stocked!                             ║");
+            System.out.println("║  " + ColorConstants.SUCCESS + "✓ All items are well-stocked!" + ColorConstants.RESET + "                  ║");
         } else {
+            System.out.println("║  Item Name                 Current  Need Replenish  ║");
+            System.out.println("╠═══════════════════════════════════════════════════════════╣");
             for (InventoryItem item : lowStockItems) {
-                double shortage = item.reorderThreshold - item.quantity;
-                System.out.printf("║  [!] %-28s Current: %5.1f  Need: %5.1f  ║%n", 
-                    item.name, item.quantity, shortage);
+                double amountNeeded = 20 - item.quantity;  // How much to bring back to 20
+                System.out.printf("║  %s[ALERT]%s %-20s %5.0f   +%5.0f     ║%n", 
+                    ColorConstants.WARNING, ColorConstants.RESET, item.name, item.quantity, amountNeeded);
             }
         }
         System.out.println("╚═══════════════════════════════════════════════════════════╝");
