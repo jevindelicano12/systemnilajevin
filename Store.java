@@ -433,10 +433,10 @@ public class Store {
             orderCodes.add(order.orderCode);
             
             // Display inventory status after checkout
-            System.out.println("\n📊 INVENTORY UPDATED:");
-            System.out.println("   ✓ Product stock deducted");
-            System.out.println("   ✓ Cups, straws, and ingredients deducted");
-            System.out.println("   ⚠️  Check admin panel for low-stock alerts");
+            System.out.println("\n[INFO] INVENTORY UPDATED:");
+            System.out.println("  [SUCCESS] Product stock deducted");
+            System.out.println("  [SUCCESS] Cups, straws, and ingredients deducted");
+            System.out.println("  [WARNING] Check admin panel for low-stock alerts");
             
             clearBasket();
         }
@@ -560,7 +560,7 @@ public class Store {
             InventoryItem item = inventory.get(itemId);
             item.quantity -= quantity;
             if (item.quantity < item.reorderThreshold) {
-                System.out.println("⚠️  LOW STOCK: " + item.name + " is running low! Current: " + (int)item.quantity);
+                System.out.println("[WARNING] LOW STOCK: " + item.name + " is running low! Current: " + (int)item.quantity);
             }
         }
     }

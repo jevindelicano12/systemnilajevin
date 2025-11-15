@@ -18,8 +18,8 @@ public class PersistenceManager {
     static {
         // ✅ FORCED JSON MODE - SQLite disabled
         sqliteAvailable = false;
-        System.out.println("✅ JSON Database Mode Active - Data saves to " + STORE_FILE);
-        System.out.println("📁 Saving to: " + getStoreFile().getAbsolutePath());
+        System.out.println(ColorConstants.colorize("[INFO]", ColorConstants.INFO) + " JSON Database Mode Active - Data saves to " + STORE_FILE);
+        System.out.println(ColorConstants.colorize("[INFO]", ColorConstants.INFO) + " Saving to: " + getStoreFile().getAbsolutePath());
     }
 
     public static void saveStore(Store store) {

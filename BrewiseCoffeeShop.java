@@ -16,17 +16,17 @@ public class BrewiseCoffeeShop {
 
     public static void main(String[] args) {
         // === DATABASE INITIALIZATION ===
-        System.out.println("\n" + ColorConstants.BORDER + "╔═══════════════════════════════════════════════════════════╗" + ColorConstants.RESET);
-        System.out.println(ColorConstants.BORDER + "║" + ColorConstants.RESET + "                                                           " + ColorConstants.BORDER + "║" + ColorConstants.RESET);
-        System.out.println(ColorConstants.BORDER + "║" + ColorConstants.RESET + ColorConstants.HEADER + "          BREWISE COFFEE SHOP MANAGEMENT SYSTEM            " + ColorConstants.RESET + ColorConstants.BORDER + "║" + ColorConstants.RESET);
-        System.out.println(ColorConstants.BORDER + "║" + ColorConstants.RESET + "                                                           " + ColorConstants.BORDER + "║" + ColorConstants.RESET);
-        System.out.println(ColorConstants.BORDER + "╚═══════════════════════════════════════════════════════════╝" + ColorConstants.RESET);
-        System.out.println("  Working Directory: " + System.getProperty("user.dir"));
+        System.out.println("\n" + ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "╔═══════════════════════════════════════════════════════════╗" + ColorConstants.RESET);
+        System.out.println(ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + "                                                           " + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET);
+        System.out.println(ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + ColorConstants.HEADER + "          BREWISE COFFEE SHOP MANAGEMENT SYSTEM            " + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET);
+        System.out.println(ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + "                                                           " + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET);
+        System.out.println(ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "╚═══════════════════════════════════════════════════════════╝" + ColorConstants.RESET);
+        System.out.println(ColorConstants.colorize("  [INFO]", ColorConstants.INFO) + " Working Directory: " + System.getProperty("user.dir"));
         
         // Load store from JSON
         store = PersistenceManager.loadStore();
         if (store == null || store.getProducts().isEmpty()) {
-            System.out.println("  Initializing system with default data...");
+            System.out.println(ColorConstants.colorize("  [INFO]", ColorConstants.INFO) + " Initializing system with default data...");
             store = new Store(); // Initialize with default data
             PersistenceManager.saveStore(store);
             System.out.println("  " + ColorConstants.colorize("[SUCCESS]", ColorConstants.SUCCESS) + " System initialized and saved.");
@@ -36,7 +36,7 @@ public class BrewiseCoffeeShop {
         
         // Add shutdown hook to save data on exit
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            System.out.println("\n  Saving data...");
+            System.out.println("\n" + ColorConstants.colorize("  [INFO]", ColorConstants.INFO) + " Saving data...");
             PersistenceManager.saveStore(store);
             System.out.println("  " + ColorConstants.colorize("[SUCCESS]", ColorConstants.SUCCESS) + " Data saved successfully!");
         }));
@@ -76,12 +76,12 @@ public class BrewiseCoffeeShop {
                     quickStats();
                     break;
                 case "5":
-                    System.out.println("\n╔═══════════════════════════════════════════════════════════╗");
-                    System.out.println("║                                                           ║");
-                    System.out.println("║      Thank you for visiting Brewise Coffee Shop!         ║");
-                    System.out.println("║             Have a great day!                             ║");
-                    System.out.println("║                                                           ║");
-                    System.out.println("╚═══════════════════════════════════════════════════════════╝\n");
+                    System.out.println("\n" + ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "╔═══════════════════════════════════════════════════════════╗" + ColorConstants.RESET);
+                    System.out.println(ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + "                                                           " + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET);
+                    System.out.println(ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + ColorConstants.SUCCESS + "      Thank you for visiting Brewise Coffee Shop!         " + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET);
+                    System.out.println(ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + ColorConstants.HEADER + "             Have a great day!                             " + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET);
+                    System.out.println(ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + "                                                           " + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET);
+                    System.out.println(ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "╚═══════════════════════════════════════════════════════════╝" + ColorConstants.RESET + "\n");
                     return;
                 case "admin:login":
                     adminLogin();
@@ -111,16 +111,16 @@ public class BrewiseCoffeeShop {
             }
         }
         
-        System.out.println("\n╔═══════════════════════════════════════════════════════════╗");
-        System.out.println("║              TODAY'S QUICK STATISTICS                      ║");
-        System.out.println("╠═══════════════════════════════════════════════════════════╣");
-        System.out.println("║                                                           ║");
-        System.out.printf("║  Total Sales:              %34.2f PHP║%n", totalSales);
-        System.out.printf("║  Orders Completed:         %34d    ║%n", completed.size());
-        System.out.printf("║  Average Order Value:      %34.2f PHP║%n", 
+        System.out.println("\n" + ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "╔═══════════════════════════════════════════════════════════╗" + ColorConstants.RESET);
+        System.out.println(ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + ColorConstants.HEADER + "              TODAY'S QUICK STATISTICS                      " + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET);
+        System.out.println(ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "╠═══════════════════════════════════════════════════════════╣" + ColorConstants.RESET);
+        System.out.println(ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + "                                                           " + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET);
+        System.out.printf(ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + "  Total Sales: " + ColorConstants.PRICE + "%35.2f PHP" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET + "%n", totalSales);
+        System.out.printf(ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + "  Orders Completed: " + ColorConstants.PRICE + "%30d" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET + "%n", completed.size());
+        System.out.printf(ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + "  Average Order Value: " + ColorConstants.PRICE + "%27.2f PHP" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET + "%n", 
             completed.isEmpty() ? 0 : totalSales / completed.size());
-        System.out.println("║                                                           ║");
-        System.out.println("╚═══════════════════════════════════════════════════════════╝");
+        System.out.println(ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + "                                                           " + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET);
+        System.out.println(ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "╚═══════════════════════════════════════════════════════════╝" + ColorConstants.RESET);
     }
 
     // ---------------------- MILKTEA MENU ----------------------
