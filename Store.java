@@ -189,6 +189,17 @@ public class Store {
     private void addInventoryItem(String id, String name, String unit, double qty, double threshold) {
         inventory.put(id, new InventoryItem(id, name, unit, qty, threshold));
     }
+    
+    // ==================== PUBLIC METHODS FOR ADDING NEW PRODUCTS ====================
+    
+    public void addNewProduct(String id, String category, String name, String flavour, 
+                             String description, double price, int stock) {
+        addProduct(id, category, name, flavour, description, price, stock);
+    }
+    
+    public void addNewInventoryItem(String id, String name, String unit, double qty, double threshold) {
+        addInventoryItem(id, name, unit, qty, threshold);
+    }
 
     // ==================== CASHIER MANAGEMENT ====================
     

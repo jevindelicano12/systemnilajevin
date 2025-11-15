@@ -195,32 +195,36 @@ public class AdminModule {
             System.out.println("╠═══════════════════════════════════════════════════════════╣");
             System.out.println("║                                                           ║");
             System.out.println("║    [1]  View All Products                                 ║");
-            System.out.println("║    [2]  Update Product Price                              ║");
-            System.out.println("║    [3]  Mark Product Unavailable                          ║");
-            System.out.println("║    [4]  Mark Product Available                            ║");
-            System.out.println("║    [5]  View Menu By Category                             ║");
-            System.out.println("║    [6]  Back                                              ║");
+            System.out.println("║    [2]  Add New Product                                   ║");
+            System.out.println("║    [3]  Update Product Price                              ║");
+            System.out.println("║    [4]  Mark Product Unavailable                          ║");
+            System.out.println("║    [5]  Mark Product Available                            ║");
+            System.out.println("║    [6]  View Menu By Category                             ║");
+            System.out.println("║    [7]  Back                                              ║");
             System.out.println("║                                                           ║");
             System.out.println("╚═══════════════════════════════════════════════════════════╝");
             
-            int choice = BrewiseCoffeeShop.getInt("  Enter your choice [1-6]: ", 1, 6);
+            int choice = BrewiseCoffeeShop.getInt("  Enter your choice [1-7]: ", 1, 7);
             switch (choice) {
                 case 1:
                     viewAllProducts();
                     break;
                 case 2:
-                    updateProductPrice();
+                    addNewProduct();
                     break;
                 case 3:
-                    markProductUnavailable();
+                    updateProductPrice();
                     break;
                 case 4:
-                    markProductAvailable();
+                    markProductUnavailable();
                     break;
                 case 5:
-                    viewMenuByCategory();
+                    markProductAvailable();
                     break;
                 case 6:
+                    viewMenuByCategory();
+                    break;
+                case 7:
                     return;
             }
         }
@@ -243,6 +247,89 @@ public class AdminModule {
             }
         }
         System.out.println("╚═══════════════════════════════════════════════════════════╝");
+    }
+    
+    private static void addNewProduct() {
+        System.out.println("\n╔═══════════════════════════════════════════════════════════╗");
+        System.out.println("║                  ADD NEW PRODUCT                           ║");
+        System.out.println("╠═══════════════════════════════════════════════════════════╣");
+        
+        // Get product details
+        System.out.print("  Enter product name: ");
+        String productName = BrewiseCoffeeShop.sc.nextLine().trim();
+        
+        // Show existing categories
+        List<String> categories = store.getCategories();
+        System.out.println("\n  Existing categories:");
+        for (int i = 0; i < categories.size(); i++) {
+            System.out.println("  [" + (i + 1) + "]  " + categories.get(i));
+        }
+        System.out.println("  [" + (categories.size() + 1) + "]  Create new category");
+        
+        int categoryChoice = BrewiseCoffeeShop.getInt("  Select category [1-" + (categories.size() + 1) + "]: ", 
+                                                      1, categories.size() + 1);
+        String category;
+        if (categoryChoice == categories.size() + 1) {
+            System.out.print("  Enter new category name: ");
+            category = BrewiseCoffeeShop.sc.nextLine().trim();
+        } else {
+            category = categories.get(categoryChoice - 1);
+        }
+        
+        System.out.print("  Enter flavour/variant (or press Enter for none): ");
+        String flavour = BrewiseCoffeeShop.sc.nextLine().trim();
+        if (flavour.isEmpty()) flavour = "Default";
+        
+        System.out.print("  Enter product description: ");
+        String description = BrewiseCoffeeShop.sc.nextLine().trim();
+        
+        double price = getDouble("  Enter product price (PHP): ");
+        int stock = BrewiseCoffeeShop.getInt("  Enter initial stock quantity: ", 0, 1000);
+        
+        // Generate product ID
+        String productId = "P-" + category.substring(0, Math.min(3, category.length())).toUpperCase() 
+                         + "-" + System.currentTimeMillis() % 1000;
+        
+        // Add the product
+        store.addNewProduct(productId, category, productName, flavour, description, price, stock);
+        
+        System.out.println("\n╔═══════════════════════════════════════════════════════════╗");
+        System.out.println("║  [SUCCESS] Product added successfully!                     ║");
+        System.out.println("║                                                           ║");
+        System.out.println("║  Now add ingredients/inventory for this product:           ║");
+        System.out.println("╚═══════════════════════════════════════════════════════════╝");
+        
+        // Add inventory items for ingredients
+        boolean addMore = true;
+        int ingredientCount = 0;
+        while (addMore && ingredientCount < 10) {
+            System.out.print("\n  Add ingredient #" + (ingredientCount + 1) + " (ingredient name, or type 'done' to finish): ");
+            String ingredientName = BrewiseCoffeeShop.sc.nextLine().trim();
+            
+            if (ingredientName.equalsIgnoreCase("done")) {
+                addMore = false;
+                break;
+            }
+            
+            System.out.print("  Unit of measurement (grams/pieces/ml/kg/L): ");
+            String unit = BrewiseCoffeeShop.sc.nextLine().trim().toLowerCase();
+            
+            double initialQty = getDouble("  Initial quantity in " + unit + ": ");
+            
+            // Generate ingredient ID
+            String ingredientId = "I-" + productId.substring(2, 5) + "-ING-" + (ingredientCount + 1);
+            
+            // Add to inventory
+            store.addNewInventoryItem(ingredientId, 
+                                      productName + " - " + ingredientName, 
+                                      unit, initialQty, 10);
+            
+            System.out.println("  [SUCCESS] Ingredient added to inventory!");
+            ingredientCount++;
+        }
+        
+        System.out.println("\n  [INFO] Product and ingredients setup complete!");
+        System.out.println("  The product is now available for customers to purchase.");
     }
 
     private static void updateProductPrice() {
