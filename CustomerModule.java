@@ -11,16 +11,15 @@ public class CustomerModule {
             System.out.println(ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "╠═══════════════════════════════════════════════════════════╣" + ColorConstants.RESET);
             System.out.println(ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + "                                                           " + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET);
             
-            // Show all product categories dynamically without individual choice numbers
+            // Show all product categories dynamically
             for (int i = 0; i < categories.size(); i++) {
-                String line = String.format(ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + "  " + ColorConstants.MENU_ITEM + "[%d]" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + "  %s" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET, 
-                    (i + 1), BrewiseCoffeeShop.padRight(categories.get(i), 49));
-                System.out.println(line);
+                String content = "  " + ColorConstants.MENU_ITEM + "[" + (i + 1) + "]" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + "  " + BrewiseCoffeeShop.padRight(categories.get(i), 46);
+                System.out.println(ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + content + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET);
             }
             
-            String backLine = String.format(ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + "  " + ColorConstants.WARNING + "[%d]" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + "  %s" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET, 
-                (categories.size() + 1), BrewiseCoffeeShop.padRight("Back", 49));
-            System.out.println(backLine);
+            String backContent = "  " + ColorConstants.WARNING + "[" + (categories.size() + 1) + "]" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + "  " + BrewiseCoffeeShop.padRight("Back", 46);
+            System.out.println(ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + backContent + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET);
+            
             System.out.println(ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + "                                                           " + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET);
             System.out.println(ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "╚═══════════════════════════════════════════════════════════╝" + ColorConstants.RESET);
             
@@ -29,11 +28,9 @@ public class CustomerModule {
 
             if (choice == categories.size() + 1) return;
             
-            // Show menu for selected category
             String selectedCategory = categories.get(choice - 1);
             productMenu(selectedCategory);
 
-            // If deeper menu requested return to main menu, do it
             if (BrewiseCoffeeShop.returnToMain) {
                 BrewiseCoffeeShop.returnToMain = false;
                 return;
@@ -47,43 +44,37 @@ public class CustomerModule {
         
         while (true) {
             System.out.println("\n" + ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "╔═══════════════════════════════════════════════════════════╗" + ColorConstants.RESET);
-            System.out.println(ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + "  " + BrewiseCoffeeShop.padCenter(ColorConstants.HEADER + category.toUpperCase() + ColorConstants.RESET, 55) + ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET);
+            System.out.println(ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + ColorConstants.HEADER + BrewiseCoffeeShop.padCenter(category.toUpperCase(), 57) + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET);
             System.out.println(ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "╠═══════════════════════════════════════════════════════════╣" + ColorConstants.RESET);
             System.out.println(ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + "                                                           " + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET);
             
-            // Show all products in this category with description style
+            // Show all products in this category with proper alignment
             for (int i = 0; i < products.size(); i++) {
                 Product p = products.get(i);
-                
-                // Create product line: [1]  Product Name.............................PHP 120.00
                 String choiceStr = ColorConstants.MENU_ITEM + "[" + (i + 1) + "]" + ColorConstants.RESET;
                 String priceStr = ColorConstants.PRICE + "PHP " + String.format("%.2f", p.price) + ColorConstants.RESET;
+                int dotsSpace = 37 - p.name.length();
+                String dots = ".".repeat(Math.max(1, dotsSpace));
                 
-                // Available space in box: 61 chars - 2 (║║) - 2 (spaces) - 2 (choice bracket) - 3 (spaces) = 51 chars
-                // Space for: name + dots + price
-                int totalSpace = 49;  // 61 - 2 (║) - 2 (two spaces at start) - 2 (closing space and ║)
-                int dotsSpace = totalSpace - p.name.length() - priceStr.length() + ColorConstants.PRICE.length() + ColorConstants.RESET.length();
-                String dots = ".".repeat(Math.max(0, dotsSpace - 10));
-                
-                System.out.printf(ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + "  %s  %s%s%s" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET + "%n", choiceStr, p.name, dots, priceStr);
+                System.out.println(ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + "  " + choiceStr + ColorConstants.MENU_BOX_BG + "  " + p.name + dots + priceStr + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET);
                 
                 // Show description on next line
                 String desc = p.description;
                 if (desc.length() > 51) {
                     desc = desc.substring(0, 48) + "...";
                 }
-                System.out.printf(ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + "       %s" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET + "%n", BrewiseCoffeeShop.padRight(desc, 51));
+                System.out.println(ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + "       " + BrewiseCoffeeShop.padRight(desc, 48) + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET);
                 System.out.println(ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + "                                                           " + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET);
             }
             
             // Back option
-            String choiceStr = ColorConstants.WARNING + "[" + (products.size() + 1) + "]" + ColorConstants.RESET;
+            String backChoiceStr = ColorConstants.WARNING + "[" + (products.size() + 1) + "]" + ColorConstants.RESET;
             String backStr = "Back";
             String backUpper = "BACK";
-            int backDotsSpace = 49 - backStr.length() - backUpper.length();
-            String backDots = ".".repeat(Math.max(0, backDotsSpace));
+            int backDotsSpace = 37 - backStr.length();
+            String backDots = ".".repeat(Math.max(1, backDotsSpace));
             
-            System.out.printf(ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + "  %s  %s%s%s" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET + "%n", choiceStr, backStr, backDots, backUpper);
+            System.out.println(ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + "  " + backChoiceStr + ColorConstants.MENU_BOX_BG + "  " + backStr + backDots + backUpper + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET);
             System.out.println(ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + "                                                           " + ColorConstants.RESET + ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "║" + ColorConstants.RESET);
             System.out.println(ColorConstants.MENU_BOX_BG + ColorConstants.BORDER + "╚═══════════════════════════════════════════════════════════╝" + ColorConstants.RESET);
             
@@ -95,7 +86,6 @@ public class CustomerModule {
             Product selected = products.get(choice - 1);
             customizeProduct(selected, category);
             
-            // If order added to basket, unwind to main menu
             if (BrewiseCoffeeShop.returnToMain) return;
         }
     }

@@ -64,15 +64,15 @@ public class ColorConstants {
     public static final String DESCRIPTION = CYAN;
     public static final String INPUT_PROMPT = BRIGHT_CYAN;
     
-    // Box Background Colors - Using bright colors for better visibility
-    public static final String BOX_BG_DARK = "\u001B[46m";      // Cyan background
-    public static final String BOX_BG_ACCENT = "\u001B[45m";    // Magenta background
-    public static final String HEADER_BOX_BG = "\u001B[46m";    // Cyan background
-    public static final String MENU_BOX_BG = "\u001B[44m";      // Blue background
+    // Box Background Colors - Using BLACK background
+    public static final String BOX_BG_DARK = "\u001B[40m";      // Black background
+    public static final String BOX_BG_ACCENT = "\u001B[40m";    // Black background
+    public static final String HEADER_BOX_BG = "\u001B[40m";    // Black background
+    public static final String MENU_BOX_BG = "\u001B[40m";      // Black background
     
     // Combined background + text colors for better contrast
-    public static final String BOX_CONTENT = "\u001B[44m" + BRIGHT_WHITE;  // Blue bg + white text
-    public static final String BOX_HEADER = "\u001B[44m" + BRIGHT_YELLOW + BOLD;  // Blue bg + yellow header
+    public static final String BOX_CONTENT = "\u001B[40m" + BRIGHT_WHITE;  // Black bg + white text
+    public static final String BOX_HEADER = "\u001B[40m" + BRIGHT_YELLOW + BOLD;  // Black bg + yellow header
     
     // Helper method to create colored text
     public static String colorize(String text, String color) {
